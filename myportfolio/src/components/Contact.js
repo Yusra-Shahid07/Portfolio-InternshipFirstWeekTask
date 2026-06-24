@@ -1,227 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
+const links = [
+  { ico: "fa-envelope", lbl: "Email", val: "syusra841@gmail.com", action: () => window.location.href = "mailto:syusra841@gmail.com" },
+  { ico: "fa-brands fa-linkedin-in", lbl: "LinkedIn", val: "Connect with me", action: () => window.open("https://www.linkedin.com/in/yusrashahid-40a61725a", "_blank") },
+  { ico: "fa-brands fa-github", lbl: "GitHub", val: "View my code", action: () => window.open("https://github.com/YusraShahid07", "_blank") },
+  { ico: "fa-brands fa-whatsapp", lbl: "WhatsApp", val: "Message directly", action: () => window.open("https://wa.me/923704018969", "_blank") },
+];
 
 export default function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [subject, setSubject] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const contactdivs = document.querySelectorAll(".contactdiv");
+  const change = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleMouseEnter = (event) => {
-      const contactDiv = event.currentTarget;
-      const iconDiv = contactDiv.querySelector(".icondiv");
-      const icon = contactDiv.querySelector(".icondiv i");
-
-      if (iconDiv && icon) {
-        if (!iconDiv.dataset.originalPaddingLeft) {
-          iconDiv.dataset.originalPaddingLeft =
-            window.getComputedStyle(iconDiv).paddingLeft;
-          iconDiv.dataset.originalPaddingRight =
-            window.getComputedStyle(iconDiv).paddingRight;
-        }
-        if (!icon.dataset.originalFontSize) {
-          icon.dataset.originalFontSize =
-            window.getComputedStyle(icon).fontSize;
-        }
-
-        const currentPaddingLeft =
-          parseInt(iconDiv.dataset.originalPaddingLeft) || 9;
-        const currentPaddingRight =
-          parseInt(iconDiv.dataset.originalPaddingRight) || 9;
-        const currentFontSize = parseInt(icon.dataset.originalFontSize) || 25;
-
-        iconDiv.style.paddingLeft = currentPaddingLeft + 3 + "px";
-        iconDiv.style.paddingRight = currentPaddingRight + 3 + "px";
-        icon.style.fontSize = currentFontSize + 3 + "px";
-
-        iconDiv.style.transition = "padding 0.3s ease";
-        icon.style.transition = "font-size 0.3s ease";
-      }
-    };
-    const handleMouseLeave = (event) => {
-      const contactDiv = event.currentTarget;
-      const iconDiv = contactDiv.querySelector(".icondiv");
-      const icon = contactDiv.querySelector(".icondiv i");
-
-      if (iconDiv && icon) {
-        const originalPaddingLeft =
-          iconDiv.dataset.originalPaddingLeft || "9px";
-        const originalPaddingRight =
-          iconDiv.dataset.originalPaddingRight || "9px";
-        const originalFontSize = icon.dataset.originalFontSize || "25px";
-
-        iconDiv.style.paddingLeft = originalPaddingLeft;
-        iconDiv.style.paddingRight = originalPaddingRight;
-        icon.style.fontSize = originalFontSize;
-      }
-    };
-
-    contactdivs.forEach((div) => {
-      div.addEventListener("mouseenter", handleMouseEnter);
-      div.addEventListener("mouseleave", handleMouseLeave);
-    });
-
-    return () => {
-      contactdivs.forEach((div) => {
-        div.removeEventListener("mouseenter", handleMouseEnter);
-        div.removeEventListener("mouseleave", handleMouseLeave);
-      });
-    };
-  }, []);
-  const handleEmailClick = () => {
-    window.location.href = "mailto:syusra841@gmail.com";
+  const submit = () => {
+    if (!form.name) return setError("Please enter your name.");
+    if (!form.email || !form.email.includes("@")) return setError("Please enter a valid email.");
+    if (!form.subject) return setError("Please enter a subject.");
+    if (!form.message) return setError("Please enter a message.");
+    setError("");
+    window.location.href = `mailto:syusra841@gmail.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
   };
 
-  const handleLinkedInClick = () => {
-    window.open(
-      "https://www.linkedin.com/in/yusra-shahid-40a61725a/",
-      "_blank"
-    );
-  };
-
-  const handleWhatsAppClick = () => {
-    window.open(
-      "https://wa.me/923704018969?text=Hi%20Yusra!%20I%20found%20your%20portfolio%20and%20wanted%20to%20connect.",
-      "_blank"
-    );
-  };
-
-  const handleGitHubClick = () => {
-    window.open("https://github.com/Yusra-Shahid07", "_blank");
-  };
-
-  const handleLocationClick = () => {
-    window.open("https://www.google.com/maps/place/Lahore,+Pakistan", "_blank");
-  };
   return (
-    <div className="contactdivmain">
-      <div className="aboutmainheading">Contact</div>
-      <div className="contactmainwork">
-        <div className="contactinfo">
-          <div className="getintouchHeading">Get In Touch</div>
-          <div className="getintouchpara">
-            I'm always excited to take on new challenges and collaborate on
-            interesting projects. Whether you need a complete website, want to
-            improve an existing
-            <br />
-            one, or just have questions about web development, feel free to
-            reach out.
-          </div>
-          <div className="contactdivs">
-            <div className="contactdiv" onClick={handleEmailClick}>
-              <div className="icondiv">
-                <i className="fa-solid fa-envelope"></i>
+    <div className="section">
+      <div className="section-header reveal">
+        <span className="section-eyebrow">// get in touch</span>
+        <h2 className="section-title">Contact</h2>
+        <div className="section-line"></div>
+      </div>
+      <div className="contact-grid">
+        <div className="reveal">
+          <h3 className="contact-heading">Let's Work Together</h3>
+          <p className="contact-sub">Open to remote internships and freelance opportunities. Feel free to reach out anytime!</p>
+          <div className="contact-cards">
+            {links.map((l, i) => (
+              <div className="contact-card" key={i} onClick={l.action}>
+                <div className="contact-card-ico"><i className={`fa-solid ${l.ico}`}></i></div>
+                <div>
+                  <div className="contact-card-lbl">{l.lbl}</div>
+                  <div className="contact-card-val">{l.val}</div>
+                </div>
               </div>
-              <div className="icontextdiv">
-                <p className="iconheading">Email</p>
-                <p className="iconmtinfo">syusra841@gmail.com</p>
-              </div>
-            </div>
-            <div className="contactdiv" onClick={handleLinkedInClick}>
-              <div className="icondiv">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </div>
-              <div className="icontextdiv">
-                <p className="iconheading">LinkedIn</p>
-                <p className="iconmtinfo">Connect with me</p>
-              </div>
-            </div>
-            <div className="contactdiv" onClick={handleWhatsAppClick}>
-              <div className="icondiv">
-                <i className="fa-brands fa-whatsapp"></i>
-              </div>
-              <div className="icontextdiv">
-                <p className="iconheading">WhatsApp</p>
-                <p className="iconmtinfo">Message Me Directly</p>
-              </div>
-            </div>
-            <div className="contactdiv" onClick={handleGitHubClick}>
-              <div className="icondiv">
-                <i className="fa-brands fa-github"></i>
-              </div>
-              <div className="icontextdiv">
-                <p className="iconheading">GitHub</p>
-                <p className="iconmtinfo">View My Projects</p>
-              </div>
-            </div>
-            <div className="contactdiv" onClick={handleLocationClick}>
-              <div className="icondiv">
-                <i className="fa-solid fa-location-dot"></i>
-              </div>
-              <div className="icontextdiv">
-                <p className="iconheading">Location</p>
-                <p className="iconmtinfo">Lahore, Pakistan</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-
-        <div className="contactrightside">
-          <div className="sendamessageHeading">Send a Message</div>
-          <div className="contactitems">
-            <div className="contactitem">
-              <div className="contactheading">Name</div>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="enter"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="contactitem">
-              <div className="contactheading">Email</div>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="enter"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="contactitem">
-              <div className="contactheading">Subject</div>
-              <input
-                type="text"
-                placeholder="What's this about"
-                className="enter"
-                onChange={(e) => setSubject(e.target.value)}
-              />
-            </div>
-            <div className="contactitem">
-              <div className="contactheading">Message</div>
-              <textarea
-                placeholder="Enter your message"
-                className="enter enterMessage"
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </div>
+        <div className="form-wrap reveal">
+          <div className="form-row">
+            {["name", "email"].map(f => (
+              <div className="f-group" key={f}>
+                <label className="f-label">{f.charAt(0).toUpperCase() + f.slice(1)}</label>
+                <input name={f} type={f === "email" ? "email" : "text"} placeholder={`Your ${f}`} className="f-input" value={form[f]} onChange={change} />
+              </div>
+            ))}
           </div>
-          <button
-            className="btn btn-primary submitbutton"
-            onClick={() => {
-              if (name === "") {
-                alert("Enter your name");
-              } else if (email === "") {
-                alert("Enter your email");
-              } else if (!email.includes("@") || !email.includes(".")) {
-                alert("Invalid Email");
-              } else if (message === "") {
-                alert("Enter your message");
-              } else if (subject === "") {
-                alert("Enter your subject");
-              } else {
-                const mailtoLink = `mailto:syusra841@gmail.com?subject=${encodeURIComponent(
-                  subject
-                )}&body=${encodeURIComponent(
-                  `Name: ${name}\nEmail: ${email}\n\n${message}`
-                )}`;
-                window.location.href = mailtoLink;
-              }
-            }}
-          >
-            Submit
-          </button>
+          <div className="f-group">
+            <label className="f-label">Subject</label>
+            <input name="subject" placeholder="What's this about?" className="f-input" value={form.subject} onChange={change} />
+          </div>
+          <div className="f-group">
+            <label className="f-label">Message</label>
+            <textarea name="message" placeholder="Your message..." className="f-input f-textarea" value={form.message} onChange={change} />
+          </div>
+          {error && <p className="f-error">{error}</p>}
+          <button className="btn-primary" onClick={submit}>Send Message ✦</button>
         </div>
       </div>
     </div>

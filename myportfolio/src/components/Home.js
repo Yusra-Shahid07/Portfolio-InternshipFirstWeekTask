@@ -1,92 +1,84 @@
 import React, { useEffect, useState } from "react";
-import mypic from "C:/Users/syusr/Downloads/Semesters/Internships/First Internship Front End Development By Internship Pakistan/Portfolio/myportfolio/src/images/mypic.png";
+import mypic from "../images/mypic.png";
 
-export default function Home(props) {
+const roles = ["Full Stack Developer", "React Developer", "Node.js Engineer", "Python Developer"];
+
+export default function Home() {
   const [display, setDisplay] = useState("");
-  const [index, setIndex] = useState(0);
-  const [back, setBack] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
   useEffect(() => {
+    const current = roles[roleIndex];
     let timer;
-    if (index < props.fullword.length && back === false) {
-      timer = setTimeout(() => {
-        setDisplay((prev) => prev + props.fullword[index]);
-        setIndex((prev) => prev + 1);
-      }, 100);
-      return () => {
-        clearTimeout(timer);
-      };
-    } else if (index === props.fullword.length && !back) {
-      timer = setTimeout(() => {
-        setBack(true);
-      }, 100);
-      return () => {
-        clearTimeout(timer);
-      };
-    } else if (back && index > 0) {
-      timer = setTimeout(() => {
-        setDisplay((prev) => prev.slice(0, -1));
-        setIndex((prev) => prev - 1);
-      }, 100);
-    } else if (back && index === 0) {
-      timer = setTimeout(() => {
-        setBack(false);
-      }, 100);
+    if (!deleting && charIndex < current.length) {
+      timer = setTimeout(() => { setDisplay(current.slice(0, charIndex + 1)); setCharIndex(c => c + 1); }, 80);
+    } else if (!deleting && charIndex === current.length) {
+      timer = setTimeout(() => setDeleting(true), 1800);
+    } else if (deleting && charIndex > 0) {
+      timer = setTimeout(() => { setDisplay(current.slice(0, charIndex - 1)); setCharIndex(c => c - 1); }, 45);
+    } else if (deleting && charIndex === 0) {
+      setDeleting(false);
+      setRoleIndex(r => (r + 1) % roles.length);
     }
-  }, [index, back]);
-  const handleLinkedInClick = () => {
-    window.open(
-      "https://www.linkedin.com/in/yusra-shahid-40a61725a/",
-      "_blank"
-    );
-  };
+    return () => clearTimeout(timer);
+  }, [charIndex, deleting, roleIndex]);
 
-  const handleWhatsAppClick = () => {
-    window.open(
-      "https://wa.me/923704018969?text=Hi%20Yusra!%20I%20found%20your%20portfolio%20and%20wanted%20to%20connect.",
-      "_blank"
-    );
-  };
+  const scroll = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-  const handleInstragramClick = () => {
-    window.open("https://www.instagram.com/yusra841h/", "_blank");
-  };
   return (
-    <div className="homediv">
-      <div className="homemaincontent">
-        <div className="mineimg">
-          <img src={mypic} />
+    <div className="home-section">
+      <div className="home-inner">
+        <div className="home-text">
+          <div className="home-tag">
+            <span className="home-tag-dot"></span>
+            Available for Remote Internships
+          </div>
+          <h1 className="home-name">
+            Hi, I'm<br />
+            <span className="name-grad">Yusra Shahid</span>
+          </h1>
+          <div className="home-role-wrap">
+            <span className="home-role-label">~/</span>
+            <span className="home-role-text">{display}<span className="home-cursor">|</span></span>
+          </div>
+          <p className="home-bio">
+            Building full-stack web apps with React, Node.js & Python. Passionate about
+            AI-powered solutions and clean, scalable code.
+          </p>
+          <div className="home-cta">
+            <button className="btn-primary" onClick={() => scroll("projects")}>View Projects</button>
+            <a href="/Yusra_Shahid_Resume.pdf" download className="btn-outline">Download CV</a>
+          </div>
+          <div className="home-socials">
+            <a href="https://www.linkedin.com/in/yusrashahid-40a61725a" target="_blank" rel="noreferrer" className="social-icon">
+              <i className="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/YusraShahid07" target="_blank" rel="noreferrer" className="social-icon">
+              <i className="fa-brands fa-github"></i>
+            </a>
+            <a href="mailto:syusra841@gmail.com" className="social-icon">
+              <i className="fa-solid fa-envelope"></i>
+            </a>
+          </div>
         </div>
-        <div className="homemetext">
-          <p id="yusraHeadingHome">
-            Hi, I'm <br />
-            <span className="namehighlight">{props.name}</span>
-          </p>
-          <p id="smallintro">
-            And a <span id="webdeveloper">{display}</span>
-          </p>
-          <p>
-            React learner & coding enthusiast, building web apps and exploring
-            tech.
-          </p>
+        <div className="home-visual">
+          <div className="avatar-wrap">
+            <div className="avatar-ring-outer"></div>
+            <div className="avatar-img-wrap">
+              <img src={mypic} alt="Yusra Shahid" />
+            </div>
+            <div className="avatar-badge">
+              <div className="avatar-badge-dot"></div>
+              <span className="avatar-badge-text">Open to Work</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="appbuttons">
-        <i className="fa-brands fa-whatsapp" onClick={handleWhatsAppClick}></i>
-        <i
-          className="fa-brands fa-linkedin-in"
-          onClick={handleLinkedInClick}
-        ></i>
-        <i
-          className="fa-brands fa-instagram"
-          onClick={handleInstragramClick}
-        ></i>
-      </div>
-      <div className="buttons">
-        <div className="cvbutton">
-          <a href="/Yusra_Shahid_Resume.pdf" download>
-            Download CV
-          </a>
-        </div>
+      <div className="scroll-cue" onClick={() => scroll("about")}>
+        <span>scroll</span>
+        <div className="scroll-line"></div>
       </div>
     </div>
   );
