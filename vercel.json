@@ -1,4 +1,6 @@
 {
+  "installCommand": "npm --prefix myportfolio install",
+  "buildCommand": "npm --prefix myportfolio run build",
   "outputDirectory": "myportfolio/build",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
