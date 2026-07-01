@@ -1,0 +1,7 @@
+{
+  "name": "portfolio-internship-first-week-task",
+  "private": true,
+  "scripts": {
+    "vercel-build": "cd myportfolio && npm install && npm run build"
+  }
+}
