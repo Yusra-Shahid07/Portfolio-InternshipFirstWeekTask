@@ -33,7 +33,7 @@ export default function Home() {
         <div className="home-text">
           <div className="home-tag">
             <span className="home-tag-dot"></span>
-            Available for Remote Internships
+            Available for Remote Internships or Jobs
           </div>
           <h1 className="home-name">
             Hi, I'm<br />
@@ -49,13 +49,13 @@ export default function Home() {
           </p>
           <div className="home-cta">
             <button className="btn-primary" onClick={() => scroll("projects")}>View Projects</button>
-            <a href="/Yusra_Shahid_Resume.pdf" download className="btn-outline">Download CV</a>
+            <a href="/Yusra_Shahid_Resume_Final.pdf" download className="btn-outline">Download CV</a>
           </div>
           <div className="home-socials">
-            <a href="https://www.linkedin.com/in/yusrashahid-40a61725a" target="_blank" rel="noreferrer" className="social-icon">
+            <a href="https://www.linkedin.com/in/yusra-shahid-40a61725a" target="_blank" rel="noreferrer" className="social-icon">
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
-            <a href="https://github.com/YusraShahid07" target="_blank" rel="noreferrer" className="social-icon">
+            <a href="https://github.com/Yusra-Shahid07" target="_blank" rel="noreferrer" className="social-icon">
               <i className="fa-brands fa-github"></i>
             </a>
             <a href="mailto:syusra841@gmail.com" className="social-icon">

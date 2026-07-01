@@ -8,7 +8,6 @@ import Projects from './components/Projects.js';
 import Experience from './components/Experience.js';
 import Contact from './components/Contact.js';
 import Footer from './components/Footor.js';
-import ParticleBackground from './components/ParticleBackground.js';
 import { useEffect } from 'react';
 
 function App() {
@@ -26,10 +25,8 @@ function App() {
 
   return (
     <div>
-      <ParticleBackground />
       <div className="orb orb-1"></div>
       <div className="orb orb-2"></div>
-      <div className="orb orb-3"></div>
       <Header />
       <section id="home"><Home /></section>
       <section id="about"><About /></section>

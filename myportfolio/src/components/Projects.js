@@ -6,7 +6,7 @@ const projects = [
     sub: "AI-Powered Study Management System",
     desc: "Full-stack platform with RAG AI chatbot, pgvector semantic search, linear regression predictor, Chart.js analytics, and ACID-compliant CockroachDB schema with Views, CTEs & window functions.",
     tech: ["Node.js", "React", "CockroachDB", "Gemini AI", "pgvector", "Chart.js"],
-    github: "https://github.com/YusraShahid07",
+    github: "https://github.com/Yusra-Shahid07",
     featured: true,
   },
   {
@@ -14,15 +14,15 @@ const projects = [
     sub: "DSA-Optimized Food Delivery System",
     desc: "Python/Flask app using Min-Heap, AVL Tree & Hash Table for priority ordering, menu search, and O(1) lookups. Dijkstra's algorithm improved route efficiency by 35%.",
     tech: ["Python", "Flask", "Dijkstra", "AVL Tree", "Min-Heap"],
-    github: "https://github.com/YusraShahid07",
+    github: "https://github.com/Yusra-Shahid07/DineX-DSAL-Final-Project",
     featured: false,
   },
   {
-    title: "MERN School System",
-    sub: "Role-Based Academic Platform",
-    desc: "Full MERN stack with JWT auth, role-based dashboards (Admin/Teacher/Student), attendance tracking, exam management, and RESTful API.",
-    tech: ["React", "Node.js", "MongoDB", "JWT", "Express.js"],
-    github: "https://github.com/YusraShahid07",
+    title: "Pateline",
+    sub: "E-Commerce Platform",
+    desc: "Built product catalog, shopping cart, checkout system with local storage persistence. Ensured responsive design and JS form validation across all pages.",
+    tech: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/Yusra-Shahid07/Petalline-Website",
     featured: false,
   },
   {
@@ -30,7 +30,7 @@ const projects = [
     sub: "Secure File Encryption",
     desc: "AES-CBC file encryption with bcrypt password hashing for secure key management. Built with Python and Flask.",
     tech: ["Python", "Flask", "AES-CBC", "bcrypt"],
-    github: "https://github.com/YusraShahid07",
+    github: "https://github.com/Yusra-Shahid07",
     featured: false,
   },
   {
@@ -38,7 +38,7 @@ const projects = [
     sub: "E-Commerce Desktop App",
     desc: "Role-based Windows Forms app for modest wear with Admin, Seller & Customer dashboards using C# and MySQL.",
     tech: ["C#", "MySQL", "Windows Forms"],
-    github: "https://github.com/YusraShahid07",
+    github: "https://github.com/Yusra-Shahid07/ModestAura-OOPProject",
     featured: false,
   },
 ];
